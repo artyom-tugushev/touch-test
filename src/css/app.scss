@@ -1,1 +1,26 @@
 // app global css in SCSS form
+html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: no-repeat url(../assets/background-blur.png) center center fixed;
+  background-size: cover;
+}
+
+.q-page-container {
+  padding: 0 !important;
+}
+
+.q-layout {
+  &__shadow:after {
+    box-shadow: none;
+  }
+  &__section--marginal {
+    background: $background-dark-04;
+  }
+}
