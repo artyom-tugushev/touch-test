@@ -15,7 +15,7 @@ import HeaderComp from 'src/components/layout/HeaderComp.vue'
 
 <style scoped>
 .background {
-  background: no-repeat url(../assets/background-baked.jpg);
+  background: no-repeat url(../assets/img/background-baked.jpg);
   background-position: center;
   background-size: contain;
   width: 1440px;

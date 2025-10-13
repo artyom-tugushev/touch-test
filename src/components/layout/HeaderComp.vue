@@ -1,7 +1,7 @@
 <template>
   <q-header class="row q-gutter-x-md" elevated>
     <img
-      src="/src/assets/logo_touch.svg"
+      src="/src/assets/icons/logo_touch.svg"
       alt="logo"
       class="cursor-pointer"
       @click="router.push('/')"
@@ -18,7 +18,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 import MainAddressModal from '../modals/AddressModal/MainAddressModal.vue'
-const isAddressModalShow = ref(false)
+const isAddressModalShow = ref(true)
 </script>
 
 <style scoped lang="scss">
