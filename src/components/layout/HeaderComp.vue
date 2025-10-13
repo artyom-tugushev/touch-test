@@ -1,14 +1,23 @@
 <template>
-  <q-header class="row q-gutter-sm" elevated>
-    <img src="" alt="logo" class="cursor-pointer" @click="router.push('/')" />
-    <q-btn @click="isAddressModalShow = !isAddressModalShow"></q-btn>
+  <q-header class="row q-gutter-x-md" elevated>
+    <img
+      src="/src/assets/logo_touch.svg"
+      alt="logo"
+      class="cursor-pointer"
+      @click="router.push('/')"
+    />
+    <q-btn @click="isAddressModalShow = !isAddressModalShow">show</q-btn>
   </q-header>
 
-  <AddressModal :visible="isAddressModalShow" />
+  <MainAddressModal v-model="isAddressModalShow" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+import MainAddressModal from '../modals/AddressModal/MainAddressModal.vue'
 const isAddressModalShow = ref(false)
 </script>
 
