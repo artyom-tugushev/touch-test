@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated> </q-header>
+    <HeaderComp />
 
     <q-page-container class="row justify-center">
       <div class="background"></div>
@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-//
+import HeaderComp from 'src/components/layout/HeaderComp.vue'
 </script>
 
 <style scoped>
