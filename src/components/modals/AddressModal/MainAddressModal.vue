@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="model" position="right" @hide="isChangeAddress = false">
-    <q-card class="column items-start">
+    <q-card>
       <q-btn
         round
         color="background-dark-40"
@@ -10,7 +10,7 @@
       >
         <img :src="`/src/assets/icons/${isChangeAddress ? 'left' : 'cancel'}.svg`" alt="close" />
       </q-btn>
-      <q-card-section class="column items-start no-wrap full-width">
+      <q-card-section class="column items-start no-wrap full-width full-height">
         <ChangeAddress v-if="isChangeAddress" title="Адрес доставки" />
         <SavedAddresses v-else title="Мои адреса" @close="emit('update:modelValue', false)" />
       </q-card-section>
@@ -50,6 +50,7 @@ const onCloseClick = () => {
 .q-card {
   display: flex;
   flex-direction: column;
+  align-items: start;
   padding: 1.5rem;
   margin: 1.5rem;
   width: 464px;

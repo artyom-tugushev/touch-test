@@ -54,7 +54,7 @@ button::before {
     color: #fff;
   }
   &__label {
-    color: white !important;
+    color: $light-secondary !important;
   }
   &__control::after {
     height: 1px !important;
@@ -64,5 +64,12 @@ button::before {
   }
   &__focusable-action {
     color: #fff;
+  }
+}
+
+.q-btn {
+  &.disabled {
+    color: $light-secondary !important;
+    background-color: $light-10 !important;
   }
 }
