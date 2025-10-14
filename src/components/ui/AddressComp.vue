@@ -1,12 +1,15 @@
 <template>
   <div class="column q-gutter-x-sm cursor-pointer">
-    <span class="street">{{ props.item.street }}</span>
+    <div class="row">
+      <span class="street">{{ props.item.street }}</span>
+      <img v-if="showArrow" src="/src/assets/icons/down.svg" alt="edit" class="edit-icon icon" />
+    </div>
     <span class="city">{{ props.item.city }}</span>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({ item: Object })
+const props = defineProps({ item: { type: Object, required: true }, showArrow: Boolean })
 </script>
 
 <style scoped lang="scss">

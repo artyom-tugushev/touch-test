@@ -44,3 +44,16 @@ button::before {
   border: none;
   background-color: $white-15;
 }
+
+.q-btn__content {
+  font-size: 15px;
+}
+
+.q-field {
+  &__native {
+    color: #fff;
+  }
+  &__label {
+    color: $light-secondary !important;
+  }
+}

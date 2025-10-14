@@ -1,31 +1,49 @@
 <template>
-  <q-dialog v-model="model" position="right">
+  <q-dialog v-model="model" position="right" @hide="isChangeAddress = false">
     <q-card class="column items-start">
       <q-btn
         round
         color="background-dark-40"
-        class="q-ml-auto q-mb-md"
-        @click="emit('update:modelValue', false)"
+        class="q-mb-md"
+        :class="{ 'q-ml-auto': !isChangeAddress }"
+        @click="onCloseClick"
       >
-        <img src="/src/assets/icons/cancel.svg" alt="close" class="close-icon icon" />
+        <img :src="`/src/assets/icons/${isChangeAddress ? 'left' : 'cancel'}.svg`" alt="close" />
       </q-btn>
       <q-card-section class="column items-start no-wrap full-width">
-        <SavedAddresses title="Мои адреса" />
+        <ChangeAddress v-if="isChangeAddress" title="Адрес доставки" />
+        <SavedAddresses v-else title="Мои адреса" @close="emit('update:modelValue', false)" />
       </q-card-section>
+      <q-btn
+        v-if="!isChangeAddress"
+        rounded
+        no-caps
+        color="white"
+        text-color="dark"
+        class="full-width q-mt-auto q-pa-sm"
+        @click="isChangeAddress = true"
+      >
+        Новый адрес
+      </q-btn>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import SavedAddresses from './SavedAddresses.vue'
+import ChangeAddress from './ChangeAddress.vue'
 
-const props = defineProps({ modelValue: Boolean })
+const props = defineProps({ modelValue: { type: Boolean, required: true } })
 const emit = defineEmits(['update:modelValue'])
 const model = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 })
+const isChangeAddress = ref(false)
+const onCloseClick = () => {
+  isChangeAddress.value ? (isChangeAddress.value = false) : emit('update:modelValue', false)
+}
 </script>
 
 <style scoped lang="scss">
@@ -46,9 +64,5 @@ const model = computed({
 }
 .q-btn {
   background-color: $background-dark-40;
-}
-.icon {
-  width: 20px;
-  height: 20px;
 }
 </style>

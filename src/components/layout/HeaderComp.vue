@@ -1,12 +1,16 @@
 <template>
-  <q-header class="row q-gutter-x-md" elevated>
+  <q-header class="row items-center q-gutter-x-md" elevated>
     <img
       src="/src/assets/icons/logo_touch.svg"
       alt="logo"
       class="cursor-pointer"
       @click="router.push('/')"
     />
-    <q-btn @click="isAddressModalShow = !isAddressModalShow">show</q-btn>
+    <AddressComp
+      showArrow
+      :item="{ street: 'Выберите адрес', city: 'Ваш адрес доставки' }"
+      @click="isAddressModalShow = !isAddressModalShow"
+    />
   </q-header>
 
   <MainAddressModal v-model="isAddressModalShow" />
@@ -15,6 +19,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import AddressComp from 'src/components/ui/AddressComp.vue'
 const router = useRouter()
 
 import MainAddressModal from '../modals/AddressModal/MainAddressModal.vue'
