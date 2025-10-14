@@ -41,7 +41,10 @@ import axios from 'axios'
 import AddressComp from 'src/components/ui/AddressComp.vue'
 import MoreInfo from './MoreInfo.vue'
 
-const props = defineProps({ title: { type: String, required: true } })
+const props = defineProps({
+  title: { type: String, required: true },
+  addressId: Number,
+})
 const search = ref('')
 const suggestions = ref([])
 const loading = ref(false)

@@ -1,27 +1,32 @@
 <template>
-  <q-dialog v-model="model" position="right" @hide="isChangeAddress = false">
+  <q-dialog v-model="model" position="right" @hide="isNewAddressShow = false">
     <q-card>
       <q-btn
         round
         color="background-dark-40"
         class="q-mb-md"
-        :class="{ 'q-ml-auto': !isChangeAddress }"
+        :class="{ 'q-ml-auto': !isNewAddressShow }"
         @click="onCloseClick"
       >
-        <img :src="`/src/assets/icons/${isChangeAddress ? 'left' : 'cancel'}.svg`" alt="close" />
+        <img :src="`/src/assets/icons/${isNewAddressShow ? 'left' : 'cancel'}.svg`" alt="close" />
       </q-btn>
       <q-card-section class="column items-start no-wrap full-width full-height">
-        <ChangeAddress v-if="isChangeAddress" title="Адрес доставки" />
-        <SavedAddresses v-else title="Мои адреса" @close="emit('update:modelValue', false)" />
+        <ChangeAddress v-if="isNewAddressShow" title="Адрес доставки" :addressId="addressId" />
+        <SavedAddresses
+          v-else
+          title="Мои адреса"
+          @close="emit('update:modelValue', false)"
+          @edit="onEditAddress"
+        />
       </q-card-section>
       <q-btn
-        v-if="!isChangeAddress"
+        v-if="!isNewAddressShow"
         rounded
         no-caps
         color="white"
         text-color="dark"
         class="full-width q-mt-auto q-pa-sm"
-        @click="isChangeAddress = true"
+        @click="isNewAddressShow = true"
       >
         Новый адрес
       </q-btn>
@@ -40,9 +45,15 @@ const model = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 })
-const isChangeAddress = ref(false)
+const isNewAddressShow = ref(false)
 const onCloseClick = () => {
-  isChangeAddress.value ? (isChangeAddress.value = false) : emit('update:modelValue', false)
+  isNewAddressShow.value ? (isNewAddressShow.value = false) : emit('update:modelValue', false)
+}
+
+const addressId = ref(null)
+const onEditAddress = (id) => {
+  addressId.value = id
+  isNewAddressShow.value = true
 }
 </script>
 

@@ -15,7 +15,7 @@
         src="/src/assets/icons/edit.svg"
         alt="edit"
         class="cursor-pointer q-ml-auto"
-        @click="console.log(item.id)"
+        @click="emit('edit', item.id)"
       />
     </div>
   </div>
@@ -24,7 +24,7 @@
 <script setup>
 import AddressComp from 'src/components/ui/AddressComp.vue'
 import { ref } from 'vue'
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'edit'])
 const props = defineProps({ title: { type: String, required: true } })
 const moc = [
   { id: 0, street: 'Батуринская улица, 165/13', city: 'Санкт-Петербург' },
