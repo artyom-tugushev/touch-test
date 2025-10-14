@@ -54,6 +54,15 @@ button::before {
     color: #fff;
   }
   &__label {
-    color: $light-secondary !important;
+    color: white !important;
+  }
+  &__control::after {
+    height: 1px !important;
+  }
+  &__control::before {
+    border-color: $light-secondary !important;
+  }
+  &__focusable-action {
+    color: #fff;
   }
 }
