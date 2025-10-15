@@ -1,15 +1,27 @@
 <template>
   <q-dialog v-model="model" position="right" @hide="isNewAddressShow = false">
     <q-card>
-      <q-btn
-        round
-        color="background-dark-40"
-        class="q-mb-md"
-        :class="{ 'q-ml-auto': !isNewAddressShow }"
-        @click="onCloseClick"
-      >
-        <img :src="`/src/assets/icons/${isNewAddressShow ? 'left' : 'cancel'}.svg`" alt="close" />
-      </q-btn>
+      <div class="full-width row q-mb-md">
+        <q-btn
+          round
+          color="background-dark-40"
+          class="back-button"
+          :class="{ 'q-ml-auto': !isNewAddressShow }"
+          @click="onCloseClick"
+        >
+          <img :src="`/src/assets/icons/${isNewAddressShow ? 'left' : 'cancel'}.svg`" alt="close" />
+        </q-btn>
+        <q-btn
+          v-if="addressId && isNewAddressShow"
+          flat
+          rounded
+          no-caps
+          color="white"
+          label="Удалить адрес"
+          class="q-ml-auto"
+          @click="deleteAddress"
+        />
+      </div>
       <q-card-section class="column items-start no-wrap full-width full-height">
         <ChangeAddress
           v-if="isNewAddressShow"
@@ -44,6 +56,8 @@
 import { ref, computed } from 'vue'
 import SavedAddresses from './SavedAddresses.vue'
 import ChangeAddress from './ChangeAddress.vue'
+import { useAddressesStore } from 'src/stores/addresses'
+const addressesStore = useAddressesStore()
 
 const props = defineProps({ modelValue: { type: Boolean, required: true } })
 const emit = defineEmits(['update:modelValue'])
@@ -67,6 +81,16 @@ const onCreateClick = () => {
   addressId.value = null
   isNewAddressShow.value = true
 }
+
+const deleteAddress = () => {
+  if (addressesStore.selectedAddressId === addressId.value) {
+    addressesStore.selectedAddressId = addressesStore.savedAddresses[0].id || null
+  }
+  addressesStore.removeAddressById(addressId.value)
+  addressesStore.saveToLocalStorage
+  addressId.value = null
+  isNewAddressShow.value = false
+}
 </script>
 
 <style scoped lang="scss">
@@ -86,7 +110,7 @@ const onCreateClick = () => {
     padding: 0;
   }
 }
-.q-btn {
+.back-button {
   background-color: $background-dark-40;
 }
 </style>

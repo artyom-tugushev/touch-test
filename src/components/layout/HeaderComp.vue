@@ -9,7 +9,10 @@
     <AddressComp
       showArrow
       :item="
-        addressesStore.selectedAddress ?? { street: 'Выберите адрес', city: 'Ваш адрес доставки' }
+        addressesStore.getSelectedAddress ?? {
+          street: 'Выберите адрес',
+          city: 'Ваш адрес доставки',
+        }
       "
       @click="isAddressModalShow = !isAddressModalShow"
     />
