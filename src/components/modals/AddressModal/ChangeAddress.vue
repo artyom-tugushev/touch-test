@@ -33,6 +33,7 @@
 
     <MoreInfo
       v-if="isMoreInfoShow"
+      :isHouse="changeAddressData?.isHouse"
       :details="changeAddressData?.addressDetails"
       :comment="changeAddressData?.comment"
       @submit="onSubmit"
@@ -120,7 +121,7 @@ const onSuggestionClick = (item) => {
   isClearable.value = false
 }
 
-const onSubmit = ({ addressDetails, comment }) => {
+const onSubmit = ({ addressDetails, comment, isHouse }) => {
   const city = selectedAddress.value?.data.city
 
   if (props.addressId) {
@@ -130,6 +131,7 @@ const onSubmit = ({ addressDetails, comment }) => {
       ...addressesStore.savedAddresses[index],
       street: search.value,
       city,
+      isHouse,
       addressDetails,
       comment,
     }
@@ -138,6 +140,7 @@ const onSubmit = ({ addressDetails, comment }) => {
       id: Date.now(),
       street: search.value,
       city,
+      isHouse,
       addressDetails,
       comment,
     }

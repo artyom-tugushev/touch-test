@@ -73,3 +73,13 @@ button::before {
     background-color: $light-10 !important;
   }
 }
+
+.q-toggle {
+  &__label {
+    color: #fff;
+    margin-right: auto;
+  }
+  &__track {
+    background: $light-secondary;
+  }
+}

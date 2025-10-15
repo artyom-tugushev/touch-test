@@ -12,6 +12,9 @@ export const useAddressesStore = defineStore('addresses', {
       LocalStorage.set('savedAddresses', this.savedAddresses)
       LocalStorage.set('selectedAddressId', this.selectedAddressId)
     },
+    removeAddressById(id) {
+      this.savedAddresses = this.savedAddresses.filter((address) => address.id !== id)
+    },
   },
 
   getters: {
