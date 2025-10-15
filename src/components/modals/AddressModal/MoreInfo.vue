@@ -1,31 +1,33 @@
 <template>
-  <q-toggle
-    left-label
-    dense
-    class="q-mb-md"
-    color="green"
-    label="Частный дом"
-    v-model="isHouseLocal"
-  />
-  <div v-if="!isHouseLocal" class="row full-width q-mb-md wrapper">
-    <q-input
-      v-for="input in inputs"
-      :key="input.name"
-      class="col"
-      type="number"
-      color="white"
-      input-style="white"
-      :label="input.label"
-      v-model="inputValues[input.name]"
+  <div>
+    <q-toggle
+      left-label
+      dense
+      class="q-mb-md"
+      color="green"
+      label="Частный дом"
+      v-model="isHouseLocal"
     />
+    <div v-if="!isHouseLocal" class="row full-width q-mb-md wrapper">
+      <q-input
+        v-for="input in inputs"
+        :key="input.name"
+        class="col"
+        type="number"
+        color="white"
+        input-style="white"
+        :label="input.label"
+        v-model="inputValues[input.name]"
+      />
+    </div>
+    <q-input color="white" input-style="white" label="Комментарий" v-model="localComment" />
   </div>
-  <q-input color="white" input-style="white" label="Комментарий" v-model="localComment" />
   <q-btn
     rounded
     no-caps
     color="white"
     text-color="dark"
-    class="full-width q-mt-auto"
+    class="q-mt-auto q-pa-sm"
     :disable="!allFilled"
     @click="onSubmit"
   >

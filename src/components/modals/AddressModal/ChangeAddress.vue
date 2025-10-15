@@ -122,15 +122,11 @@ const onSuggestionClick = (item) => {
 }
 
 const onSubmit = ({ addressDetails, comment, isHouse }) => {
-  const city = selectedAddress.value?.data.city
-
   if (props.addressId) {
     const index = addressesStore.savedAddresses.findIndex((a) => a.id === props.addressId)
-
     addressesStore.savedAddresses[index] = {
       ...addressesStore.savedAddresses[index],
       street: search.value,
-      city,
       isHouse,
       addressDetails,
       comment,
@@ -139,7 +135,7 @@ const onSubmit = ({ addressDetails, comment, isHouse }) => {
     const newAddress = {
       id: Date.now(),
       street: search.value,
-      city,
+      city: selectedAddress.value.data.city,
       isHouse,
       addressDetails,
       comment,
