@@ -83,10 +83,10 @@ const onCreateClick = () => {
 }
 
 const deleteAddress = () => {
-  if (addressesStore.selectedAddressId === addressId.value) {
-    addressesStore.selectedAddressId = addressesStore.savedAddresses[0].id || null
-  }
   addressesStore.removeAddressById(addressId.value)
+  if (addressesStore.selectedAddressId === addressId.value) {
+    addressesStore.selectedAddressId = addressesStore.savedAddresses[0]?.id || null
+  }
   addressesStore.saveToLocalStorage()
   addressId.value = null
   isNewAddressShow.value = false
