@@ -11,7 +11,7 @@
         color="white"
         :checked-icon="`img:/src/assets/icons/checkmark.svg`"
         :toggle-indeterminate="false"
-        :model-value="isChecked === item.id"
+        :model-value="addressesStore.selectedAddressId === item.id"
         @update:model-value="onChecked(item.id)"
       />
       <AddressComp :item="item" />
@@ -35,7 +35,8 @@ const props = defineProps({ title: { type: String, required: true } })
 const isChecked = ref(false)
 const onChecked = (id) => {
   isChecked.value = id
-  // обновить localStorage
+  addressesStore.selectedAddressId = id
+  addressesStore.saveToLocalStorage()
   emit('close')
 }
 </script>

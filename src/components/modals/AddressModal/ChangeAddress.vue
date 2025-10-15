@@ -108,6 +108,7 @@ const onSubmit = ({ addressDetails, comment }) => {
     comment,
   }
   addressesStore.savedAddresses.push(newAddress)
+  addressesStore.selectedAddressId = newAddress.id
   addressesStore.saveToLocalStorage()
   emit('save')
 }

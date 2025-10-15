@@ -8,7 +8,7 @@
     />
     <AddressComp
       showArrow
-      :item="{ street: 'Выберите адрес', city: 'Ваш адрес доставки' }"
+      :item="addressesStore.selectedAddress"
       @click="isAddressModalShow = !isAddressModalShow"
     />
   </q-header>
@@ -18,10 +18,11 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import AddressComp from 'src/components/ui/AddressComp.vue'
+import { useRouter } from 'vue-router'
 const router = useRouter()
-
+import { useAddressesStore } from 'src/stores/addresses'
+const addressesStore = useAddressesStore()
 import MainAddressModal from '../modals/AddressModal/MainAddressModal.vue'
 const isAddressModalShow = ref(true)
 </script>
