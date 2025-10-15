@@ -33,8 +33,8 @@
 
     <MoreInfo
       v-if="isMoreInfoShow"
-      :details="changeAddressData.addressDetails"
-      :comment="changeAddressData.comment"
+      :details="changeAddressData?.addressDetails"
+      :comment="changeAddressData?.comment"
       @submit="onSubmit"
     />
   </div>
@@ -61,7 +61,9 @@ const selectedAddress = ref(null)
 const isNothingFound = computed(
   () => isClearable.value && !suggestions.value.length && search.value && !loading.value
 )
-const isMoreInfoShow = computed(() => !suggestions.value.length && search.value)
+const isMoreInfoShow = computed(
+  () => !suggestions.value.length && search.value && !isNothingFound.value && !loading.value
+)
 
 const changeAddressData = ref(null)
 watch(
@@ -119,15 +121,30 @@ const onSuggestionClick = (item) => {
 }
 
 const onSubmit = ({ addressDetails, comment }) => {
-  const newAddress = {
-    id: Date.now(),
-    street: search.value,
-    city: selectedAddress.value.data.city,
-    addressDetails,
-    comment,
+  const city = selectedAddress.value?.data.city
+
+  if (props.addressId) {
+    const index = addressesStore.savedAddresses.findIndex((a) => a.id === props.addressId)
+
+    addressesStore.savedAddresses[index] = {
+      ...addressesStore.savedAddresses[index],
+      street: search.value,
+      city,
+      addressDetails,
+      comment,
+    }
+  } else {
+    const newAddress = {
+      id: Date.now(),
+      street: search.value,
+      city,
+      addressDetails,
+      comment,
+    }
+    addressesStore.savedAddresses.push(newAddress)
+    addressesStore.selectedAddressId = newAddress.id
   }
-  addressesStore.savedAddresses.push(newAddress)
-  addressesStore.selectedAddressId = newAddress.id
+
   addressesStore.saveToLocalStorage()
   emit('save')
 }
