@@ -1,4 +1,3 @@
-// app global css in SCSS form
 html,
 body {
   box-sizing: border-box;
@@ -6,10 +5,12 @@ body {
   padding: 0;
   height: 100%;
 }
-
 body {
-  background: no-repeat url(../assets/background-blur.png) center center fixed;
+  background: no-repeat url(../assets/img/background-blur.png) center center fixed;
   background-size: cover;
+}
+button::before {
+  box-shadow: none !important;
 }
 
 .q-page-container {
@@ -21,6 +22,64 @@ body {
     box-shadow: none;
   }
   &__section--marginal {
-    background: $background-dark-04;
+    background: $background-dark-40;
+  }
+}
+
+.q-dialog {
+  &__backdrop {
+    backdrop-filter: blur(3px);
+  }
+  &__inner--minimized {
+    padding: 0;
+  }
+}
+
+.q-card {
+  box-shadow: none;
+}
+
+.q-checkbox__bg {
+  border-radius: 10px;
+  border: none;
+  background-color: $white-15;
+}
+
+.q-btn__content {
+  font-size: 15px;
+}
+
+.q-field {
+  &__native {
+    color: #fff;
+  }
+  &__label {
+    color: $light-secondary !important;
+  }
+  &__control::after {
+    height: 1px !important;
+  }
+  &__control::before {
+    border-color: $light-secondary !important;
+  }
+  &__focusable-action {
+    color: #fff;
+  }
+}
+
+.q-btn {
+  &.disabled {
+    color: $light-secondary !important;
+    background-color: $light-10 !important;
+  }
+}
+
+.q-toggle {
+  &__label {
+    color: #fff;
+    margin-right: auto;
+  }
+  &__track {
+    background: $light-secondary;
   }
 }
