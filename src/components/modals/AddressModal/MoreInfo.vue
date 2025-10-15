@@ -16,7 +16,7 @@
     color="white"
     input-style="white"
     label="Комментарий"
-    v-model="comment"
+    v-model="localComment"
   />
   <q-btn
     rounded
@@ -45,7 +45,7 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['submit'])
-const comment = ref(props.initialComment)
+const localComment = ref(null)
 const inputValues = reactive({})
 const inputs = [
   { label: 'Кв/Офис', name: 'flat' },
@@ -54,7 +54,10 @@ const inputs = [
   { label: 'Домофон', name: 'code' },
 ]
 onMounted(() => {
-  inputs.forEach((input) => (inputValues[input.name] = props.initialDetails[input.name]))
+  if (props.details) {
+    inputs.forEach((input) => (inputValues[input.name] = props.details[input.name]))
+    localComment.value = props.comment
+  }
 })
 
 const allFilled = computed(() => {
@@ -67,7 +70,7 @@ const allFilled = computed(() => {
 const onSubmit = () => {
   emit('submit', {
     addressDetails: { ...inputValues },
-    comment: comment.value,
+    comment: localComment.value,
   })
 }
 </script>

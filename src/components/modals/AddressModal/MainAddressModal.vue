@@ -16,6 +16,7 @@
           title="Адрес доставки"
           :addressId="addressId"
           @save="isNewAddressShow = false"
+          ref="changeAddressRef"
         />
         <SavedAddresses
           v-else
@@ -30,7 +31,7 @@
           color="white"
           text-color="dark"
           class="full-width q-mt-auto q-pa-sm"
-          @click="isNewAddressShow = true"
+          @click="onCreateClick"
         >
           Новый адрес
         </q-btn>
@@ -58,6 +59,12 @@ const onCloseClick = () => {
 const addressId = ref(null)
 const onEditAddress = (id) => {
   addressId.value = id
+  isNewAddressShow.value = true
+}
+
+const changeAddressRef = ref()
+const onCreateClick = () => {
+  addressId.value = null
   isNewAddressShow.value = true
 }
 </script>

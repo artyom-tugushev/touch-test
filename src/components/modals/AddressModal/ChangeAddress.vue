@@ -31,12 +31,17 @@
       </div>
     </template>
 
-    <MoreInfo v-if="isMoreInfoShow" @submit="onSubmit" />
+    <MoreInfo
+      v-if="isMoreInfoShow"
+      :details="changeAddressData.addressDetails"
+      :comment="changeAddressData.comment"
+      @submit="onSubmit"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import axios from 'axios'
 import AddressComp from 'src/components/ui/AddressComp.vue'
 import MoreInfo from './MoreInfo.vue'
@@ -57,6 +62,20 @@ const isNothingFound = computed(
   () => isClearable.value && !suggestions.value.length && search.value && !loading.value
 )
 const isMoreInfoShow = computed(() => !suggestions.value.length && search.value)
+
+const changeAddressData = ref(null)
+watch(
+  () => props.addressId,
+  (newId) => {
+    if (newId) {
+      const address = addressesStore.getAddressById(newId)
+      search.value = address.street
+      changeAddressData.value = address
+      isClearable.value = false
+    }
+  },
+  { immediate: true }
+)
 
 const onInput = async () => {
   isClearable.value = true
