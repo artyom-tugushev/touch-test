@@ -87,7 +87,7 @@ const deleteAddress = () => {
     addressesStore.selectedAddressId = addressesStore.savedAddresses[0].id || null
   }
   addressesStore.removeAddressById(addressId.value)
-  addressesStore.saveToLocalStorage
+  addressesStore.saveToLocalStorage()
   addressId.value = null
   isNewAddressShow.value = false
 }
