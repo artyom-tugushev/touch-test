@@ -11,25 +11,30 @@
         <img :src="`/src/assets/icons/${isNewAddressShow ? 'left' : 'cancel'}.svg`" alt="close" />
       </q-btn>
       <q-card-section class="column items-start no-wrap full-width full-height">
-        <ChangeAddress v-if="isNewAddressShow" title="Адрес доставки" :addressId="addressId" />
+        <ChangeAddress
+          v-if="isNewAddressShow"
+          title="Адрес доставки"
+          :addressId="addressId"
+          @save="isNewAddressShow = false"
+        />
         <SavedAddresses
           v-else
           title="Мои адреса"
           @close="emit('update:modelValue', false)"
           @edit="onEditAddress"
         />
+        <q-btn
+          v-if="!isNewAddressShow"
+          rounded
+          no-caps
+          color="white"
+          text-color="dark"
+          class="full-width q-mt-auto q-pa-sm"
+          @click="isNewAddressShow = true"
+        >
+          Новый адрес
+        </q-btn>
       </q-card-section>
-      <q-btn
-        v-if="!isNewAddressShow"
-        rounded
-        no-caps
-        color="white"
-        text-color="dark"
-        class="full-width q-mt-auto q-pa-sm"
-        @click="isNewAddressShow = true"
-      >
-        Новый адрес
-      </q-btn>
     </q-card>
   </q-dialog>
 </template>

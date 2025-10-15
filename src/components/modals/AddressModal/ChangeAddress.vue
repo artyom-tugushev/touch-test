@@ -40,7 +40,9 @@ import { ref, computed } from 'vue'
 import axios from 'axios'
 import AddressComp from 'src/components/ui/AddressComp.vue'
 import MoreInfo from './MoreInfo.vue'
-
+import { useAddressesStore } from 'src/stores/addresses'
+const addressesStore = useAddressesStore()
+const emit = defineEmits(['save'])
 const props = defineProps({
   title: { type: String, required: true },
   addressId: Number,
@@ -49,6 +51,7 @@ const search = ref('')
 const suggestions = ref([])
 const loading = ref(false)
 const isClearable = ref(true)
+const selectedAddress = ref(null)
 
 const isNothingFound = computed(
   () => isClearable.value && !suggestions.value.length && search.value && !loading.value
@@ -91,12 +94,22 @@ const onSuggestionClick = (item) => {
     return
   }
   search.value = `${item.data.street_with_type}, ${item.data.house}`
+  selectedAddress.value = item
   suggestions.value = []
   isClearable.value = false
 }
 
 const onSubmit = ({ addressDetails, comment }) => {
-  console.log({ address: search.value, addressDetails, comment })
+  const newAddress = {
+    id: Date.now(),
+    street: search.value,
+    city: selectedAddress.value.data.city,
+    addressDetails,
+    comment,
+  }
+  addressesStore.savedAddresses.push(newAddress)
+  addressesStore.saveToLocalStorage()
+  emit('save')
 }
 </script>
 

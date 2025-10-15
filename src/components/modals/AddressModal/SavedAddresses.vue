@@ -1,7 +1,11 @@
 <template>
   <div class="column justify-center full-width">
     <div class="text-white modal-title">{{ props.title }}</div>
-    <div v-for="item of moc" :key="item.id" class="q-py-md row justify-center wrapper">
+    <div
+      v-for="item of addressesStore.savedAddresses"
+      :key="item.id"
+      class="q-py-md row justify-center wrapper"
+    >
       <q-checkbox
         dense
         color="white"
@@ -24,16 +28,10 @@
 <script setup>
 import AddressComp from 'src/components/ui/AddressComp.vue'
 import { ref } from 'vue'
+import { useAddressesStore } from 'src/stores/addresses'
+const addressesStore = useAddressesStore()
 const emit = defineEmits(['close', 'edit'])
 const props = defineProps({ title: { type: String, required: true } })
-const moc = [
-  { id: 0, street: 'Батуринская улица, 165/13', city: 'Санкт-Петербург' },
-  { id: 1, street: 'Старцева улица, 94', city: 'Санкт-Петербург' },
-  { id: 2, street: 'Кондратьевский переулок, 201', city: 'Санкт-Петербург' },
-  { id: 3, street: 'проспект Народного Ополчения, 8', city: 'Санкт-Петербург' },
-  { id: 4, street: 'Громова улица, 2', city: 'Санкт-Петербург' },
-]
-
 const isChecked = ref(false)
 const onChecked = (id) => {
   isChecked.value = id

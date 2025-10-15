@@ -8,7 +8,7 @@ export const useAddressesStore = defineStore('addresses', {
   }),
 
   actions: {
-    save() {
+    saveToLocalStorage() {
       LocalStorage.set('savedAddresses', this.savedAddresses)
       LocalStorage.set('selectedAddressId', this.selectedAddressId)
     },
