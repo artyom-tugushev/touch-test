@@ -25,26 +25,38 @@
     text-color="dark"
     class="full-width q-mt-auto q-pa-sm"
     :disable="!allFilled"
-    @click="handleSubmit"
+    @click="onSubmit"
   >
     Сохранить
   </q-btn>
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 
+const props = defineProps({
+  details: {
+    type: Object,
+    default: () => ({}),
+  },
+  comment: {
+    type: String,
+    default: '',
+  },
+})
 const emit = defineEmits(['submit'])
-const comment = ref('')
+const comment = ref(props.initialComment)
+const inputValues = reactive({})
 const inputs = [
   { label: 'Кв/Офис', name: 'flat' },
   { label: 'Подъезд', name: 'entry' },
   { label: 'Этаж', name: 'floor' },
   { label: 'Домофон', name: 'code' },
 ]
+onMounted(() => {
+  inputs.forEach((input) => (inputValues[input.name] = props.initialDetails[input.name]))
+})
 
-const inputValues = reactive({})
-inputs.forEach((input) => (inputValues[input.name] = ''))
 const allFilled = computed(() => {
   return inputs.every((input) => {
     const val = inputValues[input.name]
@@ -52,7 +64,7 @@ const allFilled = computed(() => {
   })
 })
 
-const handleSubmit = () => {
+const onSubmit = () => {
   emit('submit', {
     addressDetails: { ...inputValues },
     comment: comment.value,

@@ -8,7 +8,9 @@
     />
     <AddressComp
       showArrow
-      :item="addressesStore.selectedAddress"
+      :item="
+        addressesStore.selectedAddress ?? { street: 'Выберите адрес', city: 'Ваш адрес доставки' }
+      "
       @click="isAddressModalShow = !isAddressModalShow"
     />
   </q-header>

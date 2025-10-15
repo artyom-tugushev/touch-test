@@ -18,5 +18,8 @@ export const useAddressesStore = defineStore('addresses', {
     selectedAddress: (state) => {
       return state.savedAddresses.find((a) => a.id === state.selectedAddressId) || null
     },
+    getAddressById: (state) => {
+      return (id) => state.savedAddresses.find((a) => a.id === id) || null
+    },
   },
 })
